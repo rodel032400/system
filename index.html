@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form with Dynamic Borders and Animations</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            max-width: 400px;
+            width: 100%;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s ease-in-out;
+        }
+
+        input[type="text"]:focus, input[type="password"]:focus {
+            border-color: green;
+            transform: scale(1.05);
+        }
+
+        input[type="text"]:invalid, input[type="password"]:invalid {
+            border-color: red;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        /* Animation for fade-in */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Add a glowing effect to the submit button when focused */
+        input[type="submit"]:focus {
+            box-shadow: 0 0 10px 2px rgba(72, 255, 72, 0.8);
+        }
+
+        /* Error message animation */
+        .error-message {
+            color: red;
+            font-size: 14px;
+            display: none;
+            margin-top: 10px;
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+    <script>
+        // Function to change border color on focus
+        function focusBorder(element) {
+            element.style.borderColor = 'green';
+            element.style.transform = 'scale(1.05)';
+        }
+
+        // Function to reset border color and validate input on blur
+        function blurBorder(element) {
+            if (element.value === '') {
+                element.style.borderColor = 'red';
+            } else {
+                element.style.borderColor = 'blue';
+            }
+            element.style.transform = 'scale(1)';
+        }
+
+        function validateForm() {
+            var username = document.getElementById('username');
+            var password = document.getElementById('password');
+            var errorMessage = document.getElementById('error-message');
+
+            if (username.value === '' || password.value === '') {
+                errorMessage.style.display = 'block';
+                return false; // prevent form submission
+            }
+            errorMessage.style.display = 'none';
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form onsubmit="return validateForm()">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username"
+                onfocus="focusBorder(this)" onblur="blurBorder(this)"
+                placeholder="Enter your username" required>
+            <br>
+
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password"
+                onfocus="focusBorder(this)" onblur="blurBorder(this)"
+                placeholder="Enter your password" required>
+            <br>
+
+            <div class="error-message" id="error-message">Please fill in both fields.</div>
+
+            <input type="submit" value="Login">
+        </form>
+    </div>
+
+</body>
+</html>
